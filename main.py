@@ -6,13 +6,6 @@ from parsers.vazifa import get_vacancies_from_vazifa
 from utils.cleaner import filter_new_jobs
 from utils.hashtags import generate_hashtags
 
-from datetime import datetime
-from apscheduler.schedulers.blocking import BlockingScheduler
-
-bot = Bot(token=TELEGRAM_TOKEN)
-scheduler = BlockingScheduler()
-logging.basicConfig(level=logging.INFO)
-
 def gather_all_jobs():
     all_jobs = []
     try:
@@ -58,12 +51,7 @@ def send_jobs():
         json.dump(sent, f, ensure_ascii=False, indent=2)
         f.truncate()
 
-scheduler.add_job(send_jobs, 'cron', hour=9, minute=30)
-scheduler.add_job(send_jobs, 'cron', hour=11, minute=30)
-scheduler.add_job(send_jobs, 'cron', hour=14, minute=30)
-scheduler.add_job(send_jobs, 'cron', hour=16, minute=0)
-scheduler.add_job(send_jobs, 'cron', hour=18, minute=30)
-
 if __name__ == '__main__':
-    logging.info("Запуск бота...")
-    scheduler.start()
+    logging.basicConfig(level=logging.INFO)
+    bot = Bot(token=TELEGRAM_TOKEN)
+    send_jobs()
