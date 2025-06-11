@@ -1,0 +1,2 @@
+TELEGRAM_TOKEN = '8035782844:AAEWH8yXkoboOQEAk3J2xia2Bg30sadJynE'
+CHANNEL_ID = '@jobstodaytj'
